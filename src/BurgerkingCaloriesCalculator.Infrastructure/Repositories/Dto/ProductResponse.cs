@@ -16,6 +16,6 @@ namespace BurgerkingCaloriesCalculator.Infrastructure.Repositories.Dto
     internal class ProductResponseNutritionFact
     {
         public string Key { get; set; }
-        public double Value { get; set; }
+        public string Value { get; set; }
     }
 }

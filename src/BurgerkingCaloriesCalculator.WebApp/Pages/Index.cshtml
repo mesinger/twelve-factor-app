@@ -1,0 +1,75 @@
+﻿@page
+@model IndexModel
+
+<h1>
+    BurgerKing sehr gut
+</h1>
+<div class="d-flex justify-content-around">
+    <div>
+        <h2>
+            Products
+        </h2>
+        <div class="pb-5">
+            <h4>
+                Build a new menu by providing products ids
+            </h4>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="ProductIdsForMenu"></label>
+                    <input class="form-control" asp-for="ProductIdsForMenu" type="text" placeholder="Enter space separated product ids to calculate your menu..."/>
+                    <span asp-validation-for="ProductIdsForMenu" class="text-danger"></span>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Add menu</button>
+            </form>
+        </div>
+
+        <div>
+            <h4>
+                Available Products
+            </h4>
+            @foreach (var product in Model.Products)
+            {
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        @product.Name.Name
+                        <br/>
+                        <span class="text-muted">@product.Energy.ValueInKCal kCal / @product.Energy.ValueInKj kJ</span>
+
+                    </div>
+                    <div>
+                        Id: @product.Id
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h2>
+            Menus
+        </h2>
+        <div>
+            <h4>
+                Previous menus
+            </h4>
+            @foreach (var menu in Model.Menus)
+            {
+                <div class="mb-3">
+                    Menu ID: @menu.Id
+                    <ul>
+                        @foreach (var product in menu.MenuProducts)
+                        {
+                            <li>
+                                @product.Name.Name
+                                <br/>
+                                <span class="text-muted">@product.Energy.ValueInKCal kCal / @product.Energy.ValueInKj kJ</span>
+                            </li>
+                        }
+                    </ul>
+                    @{ var totalEnergy = menu.CalculateMenuEnergyValue();}
+                    Total energy
+                    <span class="text-muted">@totalEnergy.ValueInKCal kCal / @totalEnergy.ValueInKj kJ</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

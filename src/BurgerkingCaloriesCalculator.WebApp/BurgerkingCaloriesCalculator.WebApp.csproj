@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BurgerkingCaloriesCalculator.Application\BurgerkingCaloriesCalculator.Application.csproj" />
+      <ProjectReference Include="..\BurgerkingCaloriesCalculator.Infrastructure\BurgerkingCaloriesCalculator.Infrastructure.csproj" />
+      <ProjectReference Include="..\BurgerkingCaloriesCalculator.Options\BurgerkingCaloriesCalculator.Options.csproj" />
+    </ItemGroup>
+
+</Project>

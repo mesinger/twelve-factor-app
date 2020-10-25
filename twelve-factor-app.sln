@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerkingCaloriesCalculato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerkingCaloriesCalculator.Options", "src\BurgerkingCaloriesCalculator.Options\BurgerkingCaloriesCalculator.Options.csproj", "{44E9C1BC-3A43-4557-9EB5-08A63DFF07D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerkingCaloriesCalculator.WebApp", "src\BurgerkingCaloriesCalculator.WebApp\BurgerkingCaloriesCalculator.WebApp.csproj", "{B5495690-E3A2-49D3-BA83-31A78A5D1DEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,7 @@ Global
 		{93804E2A-4E49-4AD3-83EF-5117C3C9649F} = {0EA27E69-D7FA-4918-81A0-A630455EE054}
 		{4E171654-C8D2-4F22-A099-224E0A4EAC55} = {17510787-552A-43D6-B859-59CF34014F58}
 		{44E9C1BC-3A43-4557-9EB5-08A63DFF07D8} = {17510787-552A-43D6-B859-59CF34014F58}
+		{B5495690-E3A2-49D3-BA83-31A78A5D1DEF} = {17510787-552A-43D6-B859-59CF34014F58}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D4C5EC52-1C95-424B-9DE8-EBFF40AB31AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -55,5 +58,9 @@ Global
 		{44E9C1BC-3A43-4557-9EB5-08A63DFF07D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44E9C1BC-3A43-4557-9EB5-08A63DFF07D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E9C1BC-3A43-4557-9EB5-08A63DFF07D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5495690-E3A2-49D3-BA83-31A78A5D1DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5495690-E3A2-49D3-BA83-31A78A5D1DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5495690-E3A2-49D3-BA83-31A78A5D1DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5495690-E3A2-49D3-BA83-31A78A5D1DEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

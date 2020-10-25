@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -37,12 +38,20 @@ namespace BurgerkingCaloriesCalculator.Infrastructure.Repositories
             try
             {
                 var data = JsonConvert.DeserializeObject<IEnumerable<ProductResponse>>(response);
-                return from product in data
-                    select Product.Create(product.Id, ProductName.Create(product.Name),
-                        EnergyValue.CreateFromKCal(product.NutritionFacts
-                            .FirstOrDefault(fact => fact.Key == "energykcal")?.Value ?? 0.0));
+                return data.Select(product =>
+                {
+                    if (double.TryParse(
+                        product.NutritionFacts.FirstOrDefault(fact => fact.Key == "energykcal")?.Value ??
+                        string.Empty, out var kCal))
+                    {
+                        return Product.Create(product.Id, ProductName.Create(product.Name),
+                            EnergyValue.CreateFromKCal(kCal));
+                    }
+
+                    return null;
+                }).Where(product => product != null);
             }
-            catch (JsonReaderException)
+            catch (JsonException)
             {
                 _logger.LogWarning("Unable to get valid response from burgerking api");
                 return Enumerable.Empty<Product>();
