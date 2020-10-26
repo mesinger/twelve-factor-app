@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using BurgerkingCaloriesCalculator.Application;
 using BurgerkingCaloriesCalculator.Application.UseCases;
 using BurgerkingCaloriesCalculator.Domain.Repositories;
+using BurgerkingCaloriesCalculator.Infrastructure.Context;
 using BurgerkingCaloriesCalculator.Infrastructure.Repositories;
 using BurgerkingCaloriesCalculator.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,9 +32,14 @@ namespace BurgerkingCaloriesCalculator.WebApp
         {
             // options
             services.Configure<BurgerkingApiOptions>(Configuration.GetSection("BurgerKingAPI"));
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("MenuDb"));
+            });
             
             // infrastructure dependencies
-            services.AddSingleton<IMenuRepository, MemoryMenuRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
             services.AddHttpClient<IProductRepository, BurgerKingApiProductRepository>(client =>
             {
                 client.BaseAddress = new Uri(Configuration.GetValue<string>("BurgerKingAPI:BaseUrl"));
