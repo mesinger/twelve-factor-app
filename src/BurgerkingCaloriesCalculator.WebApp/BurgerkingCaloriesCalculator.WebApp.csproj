@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>burgerking-calories-calculator</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
