@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BurgerkingCaloriesCalculator.WebApp
 {
@@ -35,7 +36,7 @@ namespace BurgerkingCaloriesCalculator.WebApp
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("MenuDb"));
+                options.UseSqlite(Configuration.GetConnectionString("MenuDb"), builder => builder.MigrationsAssembly("burgerking-calories-calculator"));
             });
             
             // infrastructure dependencies
@@ -53,8 +54,16 @@ namespace BurgerkingCaloriesCalculator.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger, ApplicationDbContext dbContext)
         {
+            logger.LogInformation("Configuration ---------");
+            logger.LogInformation($"MenuDb = {Configuration.GetConnectionString("MenuDb")}");
+            
+            // This is only because it is required for the school submission
+            // Usually i would use dotnet ef tooling (migrations - update) or create the tables by hand
+            dbContext.Database.GetPendingMigrations();
+            dbContext.Database.Migrate();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

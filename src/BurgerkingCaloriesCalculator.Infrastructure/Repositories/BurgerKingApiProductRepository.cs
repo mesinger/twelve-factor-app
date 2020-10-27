@@ -23,13 +23,14 @@ namespace BurgerkingCaloriesCalculator.Infrastructure.Repositories
         private readonly ILogger<BurgerKingApiProductRepository> _logger;
         private readonly BurgerkingApiOptions _apiOptions;
 
-        public BurgerKingApiProductRepository(HttpClient httpClient, IOptions<BurgerkingApiOptions> apiOptions, ILogger<BurgerKingApiProductRepository> logger)
+        public BurgerKingApiProductRepository(HttpClient httpClient, IOptions<BurgerkingApiOptions> apiOptions,
+            ILogger<BurgerKingApiProductRepository> logger)
         {
             _httpClient = httpClient;
             _logger = logger;
             _apiOptions = apiOptions.Value;
         }
-        
+
         /// <inheritdoc />
         public async Task<IEnumerable<Product>> FindAll()
         {

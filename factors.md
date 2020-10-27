@@ -19,6 +19,6 @@ dotnet app.dll --urls http://0.0.0.0:port
 As the app runs inside a docker container, the port of the app has to be exposed, therefore adding an additional layer of port binding.<br/>
 Furthermore, a development deploy, running the app only with kestrel would be sufficient. For a staging / production scenario, a good approach would be to expose the application not directly, but behind a reverse proxy like nginx.<br/>
 That said, there are three layers of port binding possible:
-* Via a command line argument
+* Via kestrel
 * Via port exposing with docker
 * Via nginx
