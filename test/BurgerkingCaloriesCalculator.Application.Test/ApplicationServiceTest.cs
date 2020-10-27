@@ -58,7 +58,7 @@ namespace BurgerkingCaloriesCalculator.Application.Test
         }
 
         [Fact]
-        public async void ItShallNotCreateMenuWithoutProducts()
+        public void ItShallNotCreateMenuWithoutProducts()
         {
             var unknownIds = new[] {"1234", "5678"};
             _productRepository.Setup(repo => repo.FindAllById(unknownIds))
