@@ -17,13 +17,13 @@ namespace BurgerkingCaloriesCalculator.WebApp.Pages
     {
         private readonly IFindAllProducts _findAllProducts;
         private readonly ICreateMenu _createMenu;
-        private readonly IMenuRepository _menuRepository;
+        private readonly IFindAllMenus _findAllMenus;
 
-        public IndexModel(IFindAllProducts findAllProducts, ICreateMenu createMenu, IMenuRepository menuRepository)
+        public IndexModel(IFindAllProducts findAllProducts, ICreateMenu createMenu, IFindAllMenus findAllMenus)
         {
             _findAllProducts = findAllProducts;
             _createMenu = createMenu;
-            _menuRepository = menuRepository;
+            _findAllMenus = findAllMenus;
         }
         
         public IEnumerable<Product> Products { get; private set; }
@@ -31,8 +31,8 @@ namespace BurgerkingCaloriesCalculator.WebApp.Pages
 
         public async Task OnGet()
         {
-            Products = (await _findAllProducts.FindAll()).Products;
-            Menus = await _menuRepository.FindAll();
+            Products = await _findAllProducts.FindAllProducts();
+            Menus = await _findAllMenus.FindAllMenus();
         }
 
         [DisplayName("Product Ids")]
@@ -44,8 +44,8 @@ namespace BurgerkingCaloriesCalculator.WebApp.Pages
         {
             if (!ModelState.IsValid)
             {
-                Products = (await _findAllProducts.FindAll()).Products;
-                Menus = await _menuRepository.FindAll();
+                Products = await _findAllProducts.FindAllProducts();
+                Menus = await _findAllMenus.FindAllMenus();
                 return Page();
             }
 
@@ -55,8 +55,8 @@ namespace BurgerkingCaloriesCalculator.WebApp.Pages
 
             if (createMenuResult.Successful)
             {
-                Products = (await _findAllProducts.FindAll()).Products;
-                Menus = await _menuRepository.FindAll();
+                Products = await _findAllProducts.FindAllProducts();
+                Menus = await _findAllMenus.FindAllMenus();
                 return Page();
             }
 

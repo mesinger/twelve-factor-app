@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BurgerkingCaloriesCalculator.Application.UseCases;
 using BurgerkingCaloriesCalculator.Domain.Models;
@@ -8,7 +9,7 @@ namespace BurgerkingCaloriesCalculator.Application
     /// <summary>
     /// Application service: Implementation for application layer use cases
     /// </summary>
-    public class ApplicationService : IFindAllProducts, ICreateMenu
+    public class ApplicationService : IFindAllProducts, ICreateMenu, IFindAllMenus
     {
         private readonly IProductRepository _productRepository;
         private readonly IMenuRepository _menuRepository;
@@ -20,10 +21,10 @@ namespace BurgerkingCaloriesCalculator.Application
         }
         
         /// <inheritdoc />
-        public async Task<FindAllProductsResponse> FindAll()
+        public async Task<IEnumerable<Product>> FindAllProducts()
         {
             var products = await _productRepository.FindAll();
-            return new FindAllProductsResponse(products);
+            return products;
         }
 
         /// <inheritdoc />
@@ -33,6 +34,12 @@ namespace BurgerkingCaloriesCalculator.Application
             var menu = Menu.Create(products);
             await _menuRepository.Save(menu);
             return new CreateMenuResponse(menu, true);
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<Menu>> FindAllMenus()
+        {
+            return _menuRepository.FindAll();
         }
     }
 }

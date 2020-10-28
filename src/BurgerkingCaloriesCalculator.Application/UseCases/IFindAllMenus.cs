@@ -5,14 +5,14 @@ using BurgerkingCaloriesCalculator.Domain.Models;
 namespace BurgerkingCaloriesCalculator.Application.UseCases
 {
     /// <summary>
-    /// Finds all products
+    /// Finds all <see cref="Menu"/>s
     /// </summary>
-    public interface IFindAllProducts
+    public interface IFindAllMenus
     {
         /// <summary>
-        /// Finds all products
+        /// Finds all <see cref="Menu"/>s
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Product>> FindAllProducts();
+        Task<IEnumerable<Menu>> FindAllMenus();
     }
 }

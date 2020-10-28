@@ -49,6 +49,7 @@ namespace BurgerkingCaloriesCalculator.WebApp
             // application dependencies
             services.AddScoped<IFindAllProducts, ApplicationService>();
             services.AddScoped<ICreateMenu, ApplicationService>();
+            services.AddScoped<IFindAllMenus, ApplicationService>();
 
             services.AddRazorPages();
         }

@@ -17,12 +17,19 @@ namespace BurgerkingCaloriesCalculator.Application.Test
         private readonly Mock<IProductRepository> _productRepository;
         private readonly Mock<IMenuRepository> _menuRepository;
 
-        private readonly IReadOnlyCollection<Product> _products = new[]
+        private static readonly IReadOnlyCollection<Product> Products = new[]
         {
             Product.Create("1234", ProductName.Create("name"), EnergyValue.CreateFromKj(1000)),
             Product.Create("5678", ProductName.Create("name"), EnergyValue.CreateFromKCal(500)),
             Product.Create("9123", ProductName.Create("name"), EnergyValue.CreateFromKCal(245)),
             Product.Create("9123", ProductName.Create("name"), EnergyValue.CreateFromKj(764)),
+        };
+
+        private static readonly IReadOnlyCollection<Menu> Menus = new[]
+        {
+            Menu.Create(Products),
+            Menu.Create(Products),
+            Menu.Create(Products),
         };
 
         public ApplicationServiceTest()
@@ -36,11 +43,21 @@ namespace BurgerkingCaloriesCalculator.Application.Test
         [Fact]
         public async void ItShallFindAllProducts()
         {
-            _productRepository.Setup(repo => repo.FindAll()).ReturnsAsync(_products);
+            _productRepository.Setup(repo => repo.FindAll()).ReturnsAsync(Products);
 
-            var response = await sut.FindAll();
+            var products = await sut.FindAllProducts();
 
-            response.Products.Count().Should().Be(_products.Count);
+            products.Count().Should().Be(Products.Count);
+        }
+        
+        [Fact]
+        public async void ItShallFindAllMenus()
+        {
+            _menuRepository.Setup(repo => repo.FindAll()).ReturnsAsync(Menus);
+
+            var menus = await sut.FindAllMenus();
+
+            menus.Count().Should().Be(Menus.Count);
         }
 
         [Theory]
@@ -48,7 +65,7 @@ namespace BurgerkingCaloriesCalculator.Application.Test
         [InlineData("1234", "5678", "9123")]
         public async void ItShallCreateMenu(params string[] productIds)
         {
-            _productRepository.Setup(repo => repo.FindAllById(productIds)).ReturnsAsync(_products);
+            _productRepository.Setup(repo => repo.FindAllById(productIds)).ReturnsAsync(Products);
 
             var response = await sut.CreateMenu(new CreateMenuRequest(productIds));
 
