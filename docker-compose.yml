@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  burgerking-calories-app:
+    build: .
+    ports: 
+      - ${BurgerkingCaloriesApp_Port}:5000
+    environment:
+      - BurgerkingCalories_ConnectionStrings__MenuDb
+      - BurgerkingCalories_BurgerKingAPI__BaseUrl
+      - BurgerkingCalories_BurgerKingAPI__ProductEndpoint
+
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
+  postgres-db:
+    image: postgres:13.0
+    environment:
+      POSTGRES_PASSWORD: "${BurgerkingCaloriesApp_PostgresDb_Password}"
+      POSTGRES_USER: "${BurgerkingCaloriesApp_PostgresDb_Username}"
+      POSTGRES_DB: "${BurgerkingCaloriesApp_PostgresDb_Db}"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${BurgerkingCaloriesApp_PostgresDb_Username}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      

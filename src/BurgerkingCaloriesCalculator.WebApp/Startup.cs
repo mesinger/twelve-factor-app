@@ -36,7 +36,7 @@ namespace BurgerkingCaloriesCalculator.WebApp
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("MenuDb"), builder => builder.MigrationsAssembly("burgerking-calories-calculator"));
+                options.UseNpgsql(Configuration.GetConnectionString("MenuDb"), builder => builder.MigrationsAssembly("burgerking-calories-calculator"));
             });
             
             // infrastructure dependencies
@@ -60,7 +60,7 @@ namespace BurgerkingCaloriesCalculator.WebApp
             logger.LogInformation($"MenuDb = {Configuration.GetConnectionString("MenuDb")}");
             
             // This is only because it is required for the school submission
-            // Usually i would use dotnet ef tooling (migrations - update) or create the tables by hand
+            // Usually i would use dotnet ef tooling or create the tables by hand
             dbContext.Database.GetPendingMigrations();
             dbContext.Database.Migrate();
             
